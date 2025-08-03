@@ -2,39 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Pakistan Independence Day Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Pakistan themed colors - all HSL */
+    --background: 200 100% 6%; /* Deep navy blue */
+    --foreground: 0 0% 98%; /* Pure white */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 168 100% 10%; /* Deep green card background */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 168 100% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 152 100% 35%; /* Vibrant Pakistan green */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 168 50% 20%; /* Darker green */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 168 30% 15%; /* Muted green */
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 50 100% 50%; /* Gold accent */
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 168 20% 25%; /* Green border */
+    --input: 168 30% 15%; /* Dark green input */
+    --ring: 152 100% 35%; /* Green ring */
+    
+    /* Custom Pakistan gradients and effects */
+    --gradient-pakistan: linear-gradient(135deg, hsl(168, 100%, 10%) 0%, hsl(200, 100%, 6%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(0, 0%, 98%) 0%, hsl(152, 100%, 35%) 100%);
+    --shadow-green: 0 10px 30px -10px hsl(152, 100%, 35%, 0.3);
+    --shadow-glow: 0 0 40px hsl(152, 100%, 35%, 0.2);
+    
+    /* Fireworks animation colors */
+    --firework-1: hsl(152, 100%, 35%); /* Green */
+    --firework-2: hsl(0, 0%, 98%); /* White */
+    --firework-3: hsl(50, 100%, 50%); /* Gold */
 
     --radius: 0.5rem;
 
@@ -101,5 +111,130 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-pakistan);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Pakistan themed component styles */
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .card-pakistan {
+    @apply bg-card border border-border rounded-lg p-6 shadow-lg;
+    box-shadow: var(--shadow-green);
+    transition: all 0.3s ease;
+  }
+  
+  .card-pakistan:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .btn-pakistan {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold;
+    box-shadow: var(--shadow-green);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-pakistan:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Fireworks animation */
+  .fireworks {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .firework {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation: firework 3s infinite;
+  }
+  
+  .firework:nth-child(1) {
+    background: var(--firework-1);
+    left: 20%;
+    animation-delay: 0s;
+  }
+  
+  .firework:nth-child(2) {
+    background: var(--firework-2);
+    left: 50%;
+    animation-delay: 1s;
+  }
+  
+  .firework:nth-child(3) {
+    background: var(--firework-3);
+    left: 80%;
+    animation-delay: 2s;
+  }
+  
+  @keyframes firework {
+    0% {
+      transform: translateY(100vh) scale(0);
+      opacity: 1;
+    }
+    15% {
+      transform: translateY(20vh) scale(1);
+      opacity: 1;
+    }
+    17% {
+      transform: translateY(20vh) scale(1);
+      opacity: 1;
+    }
+    18% {
+      transform: translateY(20vh) scale(1);
+      opacity: 0;
+    }
+    20% {
+      transform: translateY(20vh) scale(3);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(20vh) scale(3);
+      opacity: 0;
+    }
+  }
+  
+  /* Fade in animations */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Timeline styles */
+  .timeline-item {
+    @apply relative pl-8 pb-8;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    @apply absolute left-0 top-0 w-px h-full bg-primary;
+  }
+  
+  .timeline-item::after {
+    content: '';
+    @apply absolute left-0 top-2 w-3 h-3 bg-primary rounded-full;
+    transform: translateX(-6px);
   }
 }
