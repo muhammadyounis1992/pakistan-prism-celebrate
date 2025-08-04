@@ -11,6 +11,7 @@ import Gallery from "./pages/Gallery";
 import Symbols from "./pages/Symbols";
 import Heroes from "./pages/Heroes";
 import Register from "./pages/Register";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/symbols" element={<Symbols />} />
               <Route path="/heroes" element={<Heroes />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

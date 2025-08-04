@@ -1,5 +1,9 @@
 import { Crown, Book, Users, Heart } from 'lucide-react';
 import jinnahPortrait from '@/assets/jinnah-portrait.jpg';
+import allamaIqbal from '@/assets/allama-iqbal.jpg';
+import liaquatAliKhan from '@/assets/liaquat-ali-khan.jpg';
+import fatimaJinnah from '@/assets/fatima-jinnah.jpg';
+import pakistanFlagWaving from '@/assets/pakistan-flag-waving.jpg';
 
 const Heroes = () => {
   const nationalHeroes = [
@@ -17,7 +21,7 @@ const Heroes = () => {
       title: "Mufakkir-e-Pakistan (Thinker of Pakistan)",
       description: "A philosopher, poet, and politician who is widely credited with inspiring the Pakistan movement through his poetry and political vision.",
       contribution: "Conceived the idea of a separate state for Muslims in his famous Allahabad Address (1930)",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face",
+      image: allamaIqbal,
       icon: Book,
       color: "text-blue-400"
     },
@@ -26,7 +30,7 @@ const Heroes = () => {
       title: "Quaid-i-Millat (Leader of the Nation)",
       description: "Pakistan's first Prime Minister, known as the 'Right Hand of Jinnah' for his crucial role in the independence movement.",
       contribution: "Served as Pakistan's first Prime Minister and helped establish the new nation's government",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face",
+      image: liaquatAliKhan,
       icon: Users,
       color: "text-green-400"
     },
@@ -35,7 +39,7 @@ const Heroes = () => {
       title: "Madar-i-Millat (Mother of the Nation)",
       description: "Sister of Muhammad Ali Jinnah, a dental surgeon, biographer, and stateswoman who played a vital role in the Pakistan movement.",
       contribution: "Advocated for women's rights and democracy, known for her political activism and social work",
-      image: "https://images.unsplash.com/photo-1494790108755-2616c8e0f8a2?w=400&h=500&fit=crop&crop=face",
+      image: fatimaJinnah,
       icon: Heart,
       color: "text-pink-400"
     }
@@ -43,14 +47,26 @@ const Heroes = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 fade-in">
-      {/* Page Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-4">
-          Our National Heroes
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Honoring the leaders who made Pakistan's independence possible
-        </p>
+      {/* Hero Section with Waving Flag */}
+      <div className="relative text-center mb-12 overflow-hidden rounded-2xl">
+        <div className="relative h-64 md:h-80">
+          <img 
+            src={pakistanFlagWaving} 
+            alt="Pakistan Flag Waving"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-pulse">
+                Our National Heroes
+              </h1>
+              <p className="text-xl md:text-2xl font-medium">
+                Honoring the leaders who made Pakistan's independence possible
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Heroes Grid */}
