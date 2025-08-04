@@ -12,29 +12,53 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const { toast } = useToast();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/admin`
+          }
+        });
 
-      if (error) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: error.message,
-        });
+        if (error) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        } else {
+          toast({
+            title: "Success",
+            description: "Account created! Check your email for verification.",
+          });
+        }
       } else {
-        toast({
-          title: "Success",
-          description: "Successfully logged in!",
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
         });
+
+        if (error) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        } else {
+          toast({
+            title: "Success",
+            description: "Successfully logged in!",
+          });
+        }
       }
     } catch (error) {
       toast({
@@ -51,13 +75,18 @@ const LoginForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary/20 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-gradient">Admin Login</CardTitle>
+          <CardTitle className="text-2xl text-gradient">
+            {isSignUp ? "Create Admin Account" : "Admin Login"}
+          </CardTitle>
           <CardDescription>
-            Please sign in to access the admin panel
+            {isSignUp 
+              ? "Create your admin account to access the panel" 
+              : "Please sign in to access the admin panel"
+            }
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleAuth} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
@@ -108,8 +137,25 @@ const LoginForm = () => {
               className="w-full" 
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading 
+                ? (isSignUp ? "Creating Account..." : "Signing in...") 
+                : (isSignUp ? "Create Account" : "Sign In")
+              }
             </Button>
+
+            <div className="text-center">
+              <Button
+                type="button"
+                variant="link"
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-sm"
+              >
+                {isSignUp 
+                  ? "Already have an account? Sign in" 
+                  : "Need an account? Sign up"
+                }
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

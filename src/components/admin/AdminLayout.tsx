@@ -3,11 +3,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { LogOut, Users, FileText, Settings } from 'lucide-react';
+import { LogOut, Users, FileText, Settings, Upload } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LoginForm from '@/components/auth/LoginForm';
 import RegistrationsManager from './RegistrationsManager';
 import UsersManager from './UsersManager';
+import ContentManager from './ContentManager';
 
 const AdminLayout = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -127,7 +128,7 @@ const AdminLayout = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="registrations" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="registrations" className="flex items-center space-x-2">
               <FileText className="h-4 w-4" />
               <span>Registrations</span>
@@ -135,6 +136,10 @@ const AdminLayout = () => {
             <TabsTrigger value="users" className="flex items-center space-x-2">
               <Users className="h-4 w-4" />
               <span>Users</span>
+            </TabsTrigger>
+            <TabsTrigger value="content" className="flex items-center space-x-2">
+              <Upload className="h-4 w-4" />
+              <span>Content</span>
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center space-x-2">
               <Settings className="h-4 w-4" />
@@ -148,6 +153,10 @@ const AdminLayout = () => {
 
           <TabsContent value="users">
             <UsersManager />
+          </TabsContent>
+
+          <TabsContent value="content">
+            <ContentManager />
           </TabsContent>
 
           <TabsContent value="settings">
